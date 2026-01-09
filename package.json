@@ -17,6 +17,15 @@
   "homepage": "https://github.com/exthazor/wedding-photos-backend#readme",
   "description": "",
   "dependencies": {
-    "express": "^5.2.1"
+    "aws-sdk": "^2.1693.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "multer": "^2.0.2",
+    "pg": "^8.16.3",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
   }
 }
