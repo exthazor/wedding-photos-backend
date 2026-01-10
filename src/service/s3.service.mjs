@@ -19,8 +19,8 @@ class S3Service {
     };
   }
 
-  getCdnUrl(key) {
-    return `https://${config.aws.cloudfrontDomain}/${key}`;
+  getCdnUrl(s3Key) {
+    return `https://${config.aws.cloudfrontDomain}/${s3Key}`;
   }
 
   async deleteFile(key) {
