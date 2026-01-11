@@ -10,7 +10,9 @@ BigInt.prototype.toJSON = function () {
   return this.toString();
 };
 
-const app = express();
+const allowedOrigins = config.cors.split(",");
+
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 
 app.use(cors({ origin: config.cors, credentials: true }));
 app.use(express.json());
