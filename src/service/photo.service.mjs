@@ -3,7 +3,7 @@ import prisma from "../config/prisma.mjs";
 class PhotoService {
   async getAll() {
     return prisma.photo.findMany({
-      orderBy: { uploaded_at: "desc" },
+      orderBy: [{ likes: "desc" }, { uploaded_at: "desc" }],
     });
   }
 
@@ -18,7 +18,14 @@ class PhotoService {
       where: {
         uploader_name: { contains: name, mode: "insensitive" },
       },
-      orderBy: { uploaded_at: "desc" },
+      orderBy: [{ likes: "desc" }, { uploaded_at: "desc" }],
+    });
+  }
+
+  async incrementLikes(id) {
+    return prisma.photo.update({
+      where: { id: BigInt(id) },
+      data: { likes: { increment: 1 } },
     });
   }
 

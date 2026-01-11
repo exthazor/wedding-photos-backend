@@ -105,6 +105,18 @@ class PhotoController {
       next(err);
     }
   }
+
+  async likePhoto(req, res, next) {
+    try {
+      const photo = await photoService.incrementLikes(req.params.id);
+      res.status(200).json(photo);
+    } catch (err) {
+      if (err.code === "P2025") {
+        return next(new AppError(ErrorTypes.PHOTO_NOT_FOUND));
+      }
+      next(err);
+    }
+  }
 }
 
 export default new PhotoController();

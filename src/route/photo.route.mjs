@@ -12,6 +12,7 @@ router.post(
 );
 router.get("/photos/uploader/:name", photoController.getByUploaderName);
 router.get("/photos/download/:id", photoController.download);
+router.post("/photos/:id/like", photoController.likePhoto);
 router.get("/photos", photoController.getAll);
 router.get("/photos/:id", photoController.getById);
 

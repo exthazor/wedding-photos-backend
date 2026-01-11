@@ -22,6 +22,8 @@ model Photo {
   uploaded_at      DateTime @default(now())
   file_size        BigInt?
   content_type     String?  @db.VarChar(50)
+  likes            Int      @default(0)
 
+  @@index([likes])
   @@map("photos")
 }
