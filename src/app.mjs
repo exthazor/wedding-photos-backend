@@ -5,16 +5,21 @@ import router from "./route/photo.route.mjs";
 import errorHandler from "./middleware/error/errorHandler.mjs";
 import notFoundHandler from "./middleware/error/notFoundHandler.mjs";
 
-// Handle BigInt serialization for JSON responses
 BigInt.prototype.toJSON = function () {
   return this.toString();
 };
 
-const allowedOrigins = config.cors.split(",");
+const app = express();
 
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+const allowedOrigins = config.cors.split(",").map((origin) => origin.trim());
 
-app.use(cors({ origin: config.cors, credentials: true }));
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  }),
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
