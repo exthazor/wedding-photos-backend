@@ -1,8 +1,13 @@
 {
   "name": "wedding-photos-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "type": "module",
+  "main": "src/index.mjs",
   "scripts": {
+    "start": "node src/index.mjs",
+    "dev": "nodemon src/index.mjs",
+    "build": "prisma generate",
+    "postinstall": "prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,12 +22,15 @@
   "homepage": "https://github.com/exthazor/wedding-photos-backend#readme",
   "description": "",
   "dependencies": {
+    "@prisma/adapter-pg": "^7.2.0",
+    "@prisma/client": "^5.22.0",
     "aws-sdk": "^2.1693.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "multer": "^2.0.2",
     "pg": "^8.16.3",
+    "prisma": "^5.22.0",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
