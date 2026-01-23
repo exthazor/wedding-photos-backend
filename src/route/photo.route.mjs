@@ -10,6 +10,8 @@ router.post(
   upload.array("photos", 25),
   photoController.uploadMultiple,
 );
+router.post("/photos/presigned-urls", photoController.getPresignedUrls);
+router.post("/photos/confirm-upload", photoController.confirmUpload);
 router.get("/photos/uploader/:name", photoController.getByUploaderName);
 router.get("/photos/download/:id", photoController.download);
 router.post("/photos/:id/like", photoController.likePhoto);

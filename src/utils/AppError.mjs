@@ -4,6 +4,7 @@ export const ErrorTypes = {
   PHOTO_NOT_FOUND: { status: 404, message: "Photo not found" },
   INVALID_FILE_TYPE: { status: 415, message: "Invalid file type" },
   FILE_TOO_LARGE: { status: 413, message: "File too large" },
+  TOO_MANY_FILES: { status: 400, message: "Too many files. Maximum is 25" },
   NOT_FOUND: { status: 404, message: "Resource not found" },
   UNAUTHORIZED: { status: 401, message: "Unauthorized" },
   FORBIDDEN: { status: 403, message: "Forbidden" },

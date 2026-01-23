@@ -19,6 +19,26 @@ class S3Service {
     };
   }
 
+  getPresignedUrl(fileName, fileType) {
+    const fileExtension = fileName.split(".").pop();
+    const key = `photos/${uuidv4()}.${fileExtension}`;
+    const params = {
+      Bucket: config.aws.bucketName,
+      Key: key,
+      ContentType: fileType,
+      Expires: 300, // URL valid for 5 minutes
+    };
+
+    const uploadUrl = s3.getSignedUrl("putObject", params);
+    return { uploadUrl, key };
+  }
+
+  getPresignedUrls(files) {
+    return files.map(({ fileName, fileType }) =>
+      this.getPresignedUrl(fileName, fileType),
+    );
+  }
+
   getCdnUrl(s3Key) {
     return `https://${config.aws.cloudfrontDomain}/${s3Key}`;
   }

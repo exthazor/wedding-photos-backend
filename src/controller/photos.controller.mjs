@@ -117,6 +117,51 @@ class PhotoController {
       next(err);
     }
   }
+
+  async getPresignedUrls(req, res, next) {
+    try {
+      const { files } = req.body;
+      if (!files || !Array.isArray(files) || files.length === 0) {
+        throw new AppError(ErrorTypes.NO_FILE_UPLOADED);
+      }
+      if (files.length > 25) {
+        throw new AppError(ErrorTypes.TOO_MANY_FILES);
+      }
+      const presignedUrls = s3Service.getPresignedUrls(files);
+      res.status(200).json({ presignedUrls });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async confirmUpload(req, res, next) {
+    try {
+      const { uploads, uploaderName } = req.body;
+      if (!uploads || !Array.isArray(uploads) || uploads.length === 0) {
+        throw new AppError(ErrorTypes.NO_FILE_UPLOADED);
+      }
+      if (!uploaderName) {
+        throw new AppError(ErrorTypes.UPLOADER_NAME_REQUIRED);
+      }
+
+      const photoIds = await Promise.all(
+        uploads.map((upload) =>
+          photoService.create({
+            filename: upload.key,
+            originalFilename: upload.originalFilename,
+            s3Key: upload.key,
+            uploaderName: uploaderName,
+            fileSize: upload.fileSize,
+            contentType: upload.contentType,
+          }),
+        ),
+      );
+
+      res.status(201).json({ ids: photoIds, count: photoIds.length });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 export default new PhotoController();
